@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ZGenCodeGenerator": {
+      "commandName": "Project",
+      "commandLineArgs": "gen z test 2"
+    }
+  }
+}
