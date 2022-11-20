@@ -6,7 +6,7 @@ using ZGenCodeGenerator.TemplateHandling;
 
 namespace ZGenCodeGenerator.Tests
 {
-    public class TemplateHandlerTests : BaseTest
+    public class TemplateHandlerTests
     {
         private readonly Mock<IFileHandler> _fileMock;
         private readonly Mock<IGeneratorFactory> _generatorFactory;
@@ -35,9 +35,9 @@ namespace ZGenCodeGenerator.Tests
         private List<string> CreateTesttemplate()
         {
             _fileMock.Setup(x => x.GetCurrDir())
-                .Returns(Task.FromResult(CrossPath("c:\\temp")));
+                .Returns(Task.FromResult("c:\\temp"));
             _fileMock.Setup(x => x.GetTemplatePath("test"))
-                .Returns(Task.FromResult(CrossPath("c:\\temp\\.zgentemplates\\z\\test")));
+                .Returns(Task.FromResult("c:\\temp\\.zgentemplates\\z\\test"));
 
             var args = new List<string> { "z", "test" };
             return args;
@@ -47,15 +47,15 @@ namespace ZGenCodeGenerator.Tests
         public async Task CanCreateTemplateName()
         {
             _fileMock.Setup(x => x.GetCurrDir())
-                .Returns(Task.FromResult(CrossPath("c:\\temp")));
+                .Returns(Task.FromResult("c:\\temp"));
             _fileMock.Setup(x => x.GetTemplatePath("test"))
                 .Returns(Task.FromResult(null as string));
             _fileMock.Setup(x => x.GetExistingTemplateDir())
-                .Returns(Task.FromResult(CrossPath("c:\\temp\\.zgentemplates")));
+                .Returns(Task.FromResult("c:\\temp\\.zgentemplates"));
 
             var args = new List<string> { "z", "test", "2" };
             await _templateHandler.CreateTemplate(args);
-            _generator.Verify(x => x.CreateTemplate(CrossPath("c:\\temp\\.zgentemplates\\z\\test")), Times.Once);
+            _generator.Verify(x => x.CreateTemplate("c:\\temp\\.zgentemplates\\z\\test"), Times.Once);
         }
 
 

@@ -9,8 +9,6 @@ namespace ZGenCodeGenerator.FileHandling
 {
     public interface IFileHandler
     {
-        string PathCombine(string path1, string path2);
-        char PathDirectorySeparatorChar { get; }
         Task<IList<TemplateInfo>> GetTemplateInfos();
         Task<string> GetTemplatePath(string templateName);
         Task<string> GetExistingTemplateDir();
