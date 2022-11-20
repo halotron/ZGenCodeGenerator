@@ -36,7 +36,7 @@ dotnet tool run zgen
 ```
 
 ## Currently available source generators provided:
-- z : This uses z&lt;NUMBER&gt; in directory name, file name and file content.
+- z : This uses z&lt;NUMBER&gt; variables in directory name, file name and file content.
 
 ## License
 
