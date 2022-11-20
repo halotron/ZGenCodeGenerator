@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using ZGenCodeGenerator.Exceptions;
 using ZGenCodeGenerator.FileHandling;
 using ZGenCodeGenerator.generators;
+using ZGenCodeGenerator.Models;
 using ZGenCodeGenerator.TemplateHandling;
 
 namespace ZGenCodeGenerator
@@ -22,7 +23,7 @@ namespace ZGenCodeGenerator
             _fileHandler = new FileHandler();
             _templateHandler = new TemplateHandler(_fileHandler,
                 new Lazy<IGeneratorFactory>(() => new GeneratorFactory(_fileHandler)));
-            var templateNames = _fileHandler.GetTemplateNames();
+            var templateNames = _fileHandler.GetTemplateInfos();
             if (args.Length == 0)
             {
                 await ShowHelp(templateNames);
@@ -41,8 +42,8 @@ namespace ZGenCodeGenerator
             }
             else
             {
-                var names = (await templateNames).Select(x => x.ToLower()).ToList();
-                if (names.Contains(firstAarg))
+                var names = await templateNames;
+                if (names.Any(x => x.Name == firstAarg))
                 {
                     try
                     {
@@ -75,7 +76,7 @@ namespace ZGenCodeGenerator
             }
         }
         
-        private static async Task ShowHelp(Task<IList<string>> templateNames, IList<string> resolvedNames = null)
+        private static async Task ShowHelp(Task<IList<TemplateInfo>> templateNames, IList<TemplateInfo> resolvedNames = null)
         {
 
             Console.WriteLine("ZGen Code Generator");
@@ -86,17 +87,33 @@ Options:
 
 If template name is the first argument, the following command line arguments are passed to the template:
     <template name> <arg1> <arg2> <arg3> ...
+
+Use z<NUMBER> anywhere in your template to mark a variable.
+For example:
+    z1 will be replaced with the first argument passed to the template
+    z2 will be replaced with the second argument passed to the template
+    z3 will be replaced with the third argument passed to the template
+    ...
  
+The variable can be placed in:
+-   Directory name
+-   File name
+-   File content
+
+If it is placed in the file content, the variable must be surrounded with {{ and }}
+Like this: {{z42}}
+
+
 Available templates:
 ");
-            IList<string> names;
+            IList<TemplateInfo> names;
             if (resolvedNames != null)
                 names = resolvedNames;
             else
                 names = await templateNames;
             if (names != null && names.Count > 0)
             {
-                names.ToList().ForEach(t => Console.WriteLine(t));
+                names.ToList().ForEach(t => Console.WriteLine(t.Name + " -> " + t.Path));
             }
             else
             {

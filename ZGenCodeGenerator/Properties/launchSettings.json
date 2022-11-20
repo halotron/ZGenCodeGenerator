@@ -1,8 +1,7 @@
 {
   "profiles": {
     "ZGenCodeGenerator": {
-      "commandName": "Project",
-      "commandLineArgs": "test foo bar"
+      "commandName": "Project"
     }
   }
 }

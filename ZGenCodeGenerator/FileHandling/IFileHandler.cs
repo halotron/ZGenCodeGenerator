@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using ZGenCodeGenerator.Models;
 
 namespace ZGenCodeGenerator.FileHandling
 {
     public interface IFileHandler
     {
-        Task<IList<string>> GetTemplateNames();
+        Task<IList<TemplateInfo>> GetTemplateInfos();
         Task<string> GetTemplatePath(string templateName);
         Task<string> GetExistingTemplateDir();
         Task<string> GetCurrDir();

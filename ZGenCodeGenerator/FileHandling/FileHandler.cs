@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZGenCodeGenerator.Models;
 
 namespace ZGenCodeGenerator.FileHandling
 {
@@ -71,14 +72,14 @@ namespace ZGenCodeGenerator.FileHandling
             return ".zgentemplates";
         }
 
-        public async Task<IList<string>> GetTemplateNames()
+        public async Task<IList<TemplateInfo>> GetTemplateInfos()
         {
             var dir = Directory.GetCurrentDirectory();
             return await Task.Run(async () =>
             {
-                var set = new HashSet<string>();
+                var set = new HashSet<TemplateInfo>();
                 return await TraverseTemplates(dir,
-                    x => set.Add(Path.GetFileName(x)),
+                    x => set.Add(new TemplateInfo { Name = Path.GetFileName(x), Path = x }),
                     () => set.ToList()
                     );
             }
@@ -119,8 +120,8 @@ namespace ZGenCodeGenerator.FileHandling
             await File.WriteAllTextAsync(newFile, newContent);
         }
 
-        private async Task<IList<string>> TraverseTemplates(string dir,
-            Func<string, bool> onTemplateFound, Func<IList<string>> onDone)
+        private async Task<IList<TemplateInfo>> TraverseTemplates(string dir,
+            Func<string, bool> onTemplateFound, Func<IList<TemplateInfo>> onDone)
         {
             var tmplPath = Path.Combine(dir, GetTemplateDirName());
             if (Directory.Exists(tmplPath))
