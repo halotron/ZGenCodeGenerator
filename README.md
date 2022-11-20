@@ -51,5 +51,7 @@ dotnet tool run zgen
 
 ## License
 
+Since this is a dotnet tool and will never be part of your application, the license has ZERO effect on what project it is used on.
+Use it on any project with any license.
 
 [LGPL 2.1](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html)
