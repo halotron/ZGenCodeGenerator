@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	  <AssemblyVersion>1.0.*</AssemblyVersion>
+	  <AssemblyVersion>1.0.0.*</AssemblyVersion>
 	  <Deterministic>false</Deterministic>
     <OutputType>Exe</OutputType>
     <TargetFrameworks>netcoreapp3.1;net6.0</TargetFrameworks>
@@ -10,7 +10,7 @@
 	  <PackageOutputPath>./nupkg</PackageOutputPath>
 	  <Company>knacka.se</Company>
 	  <Authors>Jonas Jakobsson</Authors>
-	  <Version></Version>
+	  <Version>1.0.0.0</Version>
 	  <PackageProjectUrl>https://github.com/halotron/ZGenCodeGenerator</PackageProjectUrl>
 	  <RepositoryUrl>https://github.com/halotron/ZGenCodeGenerator</RepositoryUrl>
 	  <RepositoryType>git</RepositoryType>
