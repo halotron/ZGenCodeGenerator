@@ -23,7 +23,7 @@ namespace ZGenCodeGenerator.TemplateHandling
         }
 
 
-        public async Task CreateTemplate(IList<string> args)
+        public async Task<string> CreateTemplate(IList<string> args)
         {
             IGenerator generator = null;
             bool firstTry = true;
@@ -105,6 +105,7 @@ namespace ZGenCodeGenerator.TemplateHandling
                 Path.DirectorySeparatorChar + generatorName + Path.DirectorySeparatorChar + templateName;
 
             await generator.CreateTemplate(templateDir);
+            return templateDir;
         }
 
         private string MakeSurePathChoice(string choice)

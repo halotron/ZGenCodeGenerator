@@ -5,7 +5,13 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZGenCodeGenerator", "ZGenCodeGenerator\ZGenCodeGenerator.csproj", "{8DB39F5D-08D5-44C3-8533-361C884EDD44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZGenCodeGenerator.Tests", "ZGenCodeGenerator.Tests\ZGenCodeGenerator.Tests.csproj", "{3C8C945E-9857-48FC-9384-71BFE2F7B75B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZGenCodeGenerator.Tests", "ZGenCodeGenerator.Tests\ZGenCodeGenerator.Tests.csproj", "{3C8C945E-9857-48FC-9384-71BFE2F7B75B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{964DDB7D-653D-4A73-8759-80990E1BDE4C}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.txt = LICENSE.txt
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

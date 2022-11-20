@@ -7,7 +7,7 @@ namespace ZGenCodeGenerator.TemplateHandling
 {
     public interface ITemplateHandler
     {
-        Task CreateTemplate(IList<string> args);
+        Task<string> CreateTemplate(IList<string> args);
         Task Generate(string templateName, IList<string> args);
     }
 }

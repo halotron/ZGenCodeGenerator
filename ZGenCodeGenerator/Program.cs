@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using ZGenCodeGenerator.Exceptions;
 using ZGenCodeGenerator.FileHandling;
@@ -34,7 +36,8 @@ namespace ZGenCodeGenerator
             }
             else if (firstAarg == "gen")
             {
-                await _templateHandler.CreateTemplate(args.Skip(1).ToList());
+                var templateDir = await _templateHandler.CreateTemplate(args.Skip(1).ToList());
+                MaybeShowFileExplorer(templateDir);
             }
             else
             {
@@ -61,18 +64,24 @@ namespace ZGenCodeGenerator
             return;
         }
 
-
-
-
-
-
+        private static void MaybeShowFileExplorer(string templateDir)
+        {
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+            {
+                Process.Start("explorer.exe", "/select, " + templateDir);
+            } else if(RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                Process.Start("open", "-R " + templateDir);
+            }
+        }
+        
         private static async Task ShowHelp(Task<IList<string>> templateNames, IList<string> resolvedNames = null)
         {
 
             Console.WriteLine("ZGen Code Generator");
             Console.WriteLine(@"
 Options:
-    gen - Generates a new template using a wizard
+    gen - Generates a new template with default content and opens it in your default editor
     <template name> - executes that template
 
 If template name is the first argument, the following command line arguments are passed to the template:
