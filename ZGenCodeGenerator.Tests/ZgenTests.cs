@@ -14,6 +14,11 @@ namespace ZGenCodeGenerator.Tests
         {
             _fileMock = new Mock<IFileHandler>();
             _generator = new ZGenerator(_fileMock.Object);
+
+            _fileMock.SetupGet(x => x.PathDirectorySeparatorChar)
+                .Returns('\\');
+            _fileMock.Setup(x => x.PathCombine(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns((string a, string b) => a + "\\" + b);
         }
         [Fact]
         public async Task CanWriteDirFromTempl()
@@ -48,6 +53,7 @@ namespace ZGenCodeGenerator.Tests
         [Fact]
         public async Task CanWriteFile()
         {
+
             _fileMock.Setup(x => x.GetCurrDir())
                 .Returns(Task.FromResult(CrossPath("c:\\temp")));
             _fileMock.Setup(x => x.GetTemplatePath("test"))

@@ -21,9 +21,9 @@ namespace ZGenCodeGenerator.generators
         public async Task CreateTemplate(string templateDir)
         {
             await _fileHandler.EnsureDirExist(templateDir);
-            var dir = Path.Combine(templateDir, "z1");
+            var dir = _fileHandler.PathCombine(templateDir, "z1");
             await _fileHandler.AddDirectory(dir);
-            var file = Path.Combine(dir, "z2.txt");
+            var file = _fileHandler.PathCombine(dir, "z2.txt");
             await _fileHandler.WriteAllTextAsync(file, "hello {{z1}}");
             Console.WriteLine("Created template in " + templateDir +
                 "\nwith 2 parameters");
@@ -95,13 +95,13 @@ namespace ZGenCodeGenerator.generators
                     return m.Value;
                 }
             });
-            var fullDir = Path.Combine(parentDir, translated);
+            var fullDir = _fileHandler.PathCombine(parentDir, translated);
             return fullDir;
         }
 
         public async Task<IList<string>> GetTemplateVariables(string templateDir)
         {
-            if (!templateDir.Contains(Path.DirectorySeparatorChar))
+            if (!templateDir.Contains(_fileHandler.PathDirectorySeparatorChar))
             {
                 templateDir = await _fileHandler.GetTemplatePath(templateDir);
             }

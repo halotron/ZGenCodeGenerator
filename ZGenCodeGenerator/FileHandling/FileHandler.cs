@@ -110,6 +110,13 @@ namespace ZGenCodeGenerator.FileHandling
             );
         }
 
+        public string PathCombine(string path1, string path2)
+        {
+            return Path.Combine(path1, path2);
+        }
+
+        public char PathDirectorySeparatorChar => Path.DirectorySeparatorChar;
+
         public async Task<string> ReadAllTextAsync(string f)
         {
             return await File.ReadAllTextAsync(f);
