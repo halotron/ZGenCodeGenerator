@@ -21,13 +21,15 @@ dotnet tool install -g zgen
 ## Usage in CLI or command line
 
 ```
- dotnet zgen --help
+ dotnet tool run zgen --help
 ```
 
-dotnet install zgen
+For convenciene you can add an alias to your shell profile
 
 ```
-
+alias zgen="dotnet tool run zgen"
+```
+That can also be placed in a script file in your path.
 
 ## Features
 
