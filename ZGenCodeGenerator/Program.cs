@@ -37,8 +37,21 @@ namespace ZGenCodeGenerator
             }
             else if (firstAarg == "gen")
             {
-                var templateDir = await _templateHandler.CreateTemplate(args.Skip(1).ToList());
-                MaybeShowFileExplorer(templateDir);
+                if (args.Length == 1)
+                {
+                    Console.WriteLine("You need to specify what type of source generator to create.");
+                    Console.WriteLine("Currently, these are supported:");
+                    var supportedCodeGenerators = await _templateHandler.GetSourceGenerators();
+                    foreach (var item in supportedCodeGenerators)
+                    {
+                        Console.WriteLine("- " + item.Name);
+                    }
+                    Console.WriteLine("Choose one of those and try again.");
+                } else
+                {
+                    var templateDir = await _templateHandler.CreateTemplate(args.Skip(1).ToList());
+                    MaybeShowFileExplorer(templateDir);
+                }
             }
             else
             {
@@ -82,12 +95,16 @@ namespace ZGenCodeGenerator
             Console.WriteLine("ZGen Code Generator");
             Console.WriteLine(@"
 Options:
-    gen - Generates a new template with default content and opens it in your default editor
+    gen <GENERATOR LETTER> - Generates a new template with default content and opens it in your default editor
     <template name> - executes that template
+
+Supported generator letters:
+- z : the default template source generator using z<NUMBER> variables.
 
 If template name is the first argument, the following command line arguments are passed to the template:
     <template name> <arg1> <arg2> <arg3> ...
 
+For the z generator:
 Use z<NUMBER> anywhere in your template to mark a variable.
 For example:
     z1 will be replaced with the first argument passed to the template

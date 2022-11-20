@@ -35,19 +35,8 @@ Or on windows you can add a zgen.bat in your path with the following content
 dotnet tool run zgen
 ```
 
-
-## Features
-
-
-- Live previews
-
-- Add section
-
-- Remove Section
-
-- Update Section
-
-- Download Readme
+## Currently available source generators provided:
+- z : This uses z<NUMBER> in directory name, file name and file content.
 
 ## License
 

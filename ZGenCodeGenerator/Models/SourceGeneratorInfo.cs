@@ -4,9 +4,8 @@ using System.Text;
 
 namespace ZGenCodeGenerator.Models
 {
-    public struct TemplateInfo
+    public struct SourceGeneratorInfo
     {
         public string Name;
-        public string Path;
     }
 }

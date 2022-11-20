@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ZGenCodeGenerator.FileHandling;
 using ZGenCodeGenerator.generators;
 using ZGenCodeGenerator.Exceptions;
+using ZGenCodeGenerator.Models;
 
 namespace ZGenCodeGenerator.TemplateHandling
 {
@@ -176,5 +177,11 @@ namespace ZGenCodeGenerator.TemplateHandling
             await generator.Generate(pathDir, targetDir, dictArgs);
         }
 
+        public async Task<IList<SourceGeneratorInfo>> GetSourceGenerators()
+        {
+            var genNames = new [] { "z" };
+
+            return await Task.FromResult(genNames.Select(x => new SourceGeneratorInfo { Name = x }).ToList());
+        }
     }
 }
