@@ -12,7 +12,7 @@ It is a template generator that can store templates somewhere in the directory t
 
 ## Installation
 
-
+This tool is distributed through nuget.org, so it can be installed as a ususal dotnet cli tool.
 ```
 
 dotnet tool install -g zgen
