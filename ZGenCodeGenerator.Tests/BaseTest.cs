@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,11 +13,21 @@ namespace ZGenCodeGenerator.Tests
         {
             if (Path.DirectorySeparatorChar == '\\')
             {
-                return path.Replace('/', '\\');
+                if (path.Contains("/"))
+                {
+                    Debug.WriteLine("Path contains / : " + path);
+                    path = path.Replace("/", "\\");
+                }
+                return path;
             }
             else
             {
-                return path.Replace('\\', '/');
+                if (path.Contains("\\"))
+                {
+                    Debug.WriteLine("Path contains \\ : " + path);
+                    path = path.Replace("\\", "/");
+                }
+                return path;
             }
         }
     }
