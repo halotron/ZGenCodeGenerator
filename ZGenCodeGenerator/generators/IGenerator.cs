@@ -8,8 +8,8 @@ namespace ZGenCodeGenerator.generators
 {
     public interface IGenerator
     {
-        Task<IEnumerable<string>> GetTemplateVariables(string templateDir);
-        Task Generate(string templateDir, string targetDir, Dictionary<string, string> varnames, IList<string> args);
+        Task<IList<string>> GetTemplateVariables(string templateDir);
+        Task Generate(string templateDir, string targetDir, Dictionary<string, string> varnames);
         Task CreateTemplate(string templateDir);
     }
 }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using ZGenCodeGenerator.Exceptions;
 using ZGenCodeGenerator.FileHandling;
 using ZGenCodeGenerator.generators;
 using ZGenCodeGenerator.TemplateHandling;
@@ -40,7 +41,16 @@ namespace ZGenCodeGenerator
                 var names = (await templateNames).Select(x => x.ToLower()).ToList();
                 if (names.Contains(firstAarg))
                 {
-                    await _templateHandler.Generate(firstAarg, args.Skip(1));
+                    try
+                    {
+                        await _templateHandler.Generate(firstAarg, args.Skip(1).ToList());
+
+                    }
+                    catch (NumberOfVariableParametersNotMatchingException e)
+                    {
+                        Console.WriteLine($"The template {e.TemplateName} requires {e.Variables?.Count() ?? 0} parameters, but you only provided {e.ProvidedParameters?.Count() ?? 0} parameters");
+                    }
+
                 }
                 else
                 {

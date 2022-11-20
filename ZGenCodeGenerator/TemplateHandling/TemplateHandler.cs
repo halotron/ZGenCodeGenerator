@@ -15,7 +15,7 @@ namespace ZGenCodeGenerator.TemplateHandling
         private IFileHandler _fileHandler;
         private readonly Lazy<IGeneratorFactory> _generatorFactory;
 
-        public TemplateHandler(IFileHandler fileHandler, 
+        public TemplateHandler(IFileHandler fileHandler,
             Lazy<IGeneratorFactory> generatorFactory)
         {
             _fileHandler = fileHandler;
@@ -126,17 +126,53 @@ namespace ZGenCodeGenerator.TemplateHandling
             return pathChoice;
         }
         
-        public async Task Generate(string firstAarg, IEnumerable<string> args)
+        public async Task Generate(string templateName, IList<string> args)
         {
-            var dir = Directory.GetCurrentDirectory();
-            string pathDir = await _fileHandler.GetTemplatePath(firstAarg);
+            string pathDir = await _fileHandler.GetTemplatePath(templateName);
+
+            if (pathDir == null)
+            {
+                throw new ArgumentException($"No template called {templateName}");
+            }
 
             var dirType = Path.GetDirectoryName(pathDir);
             var indexLast = dirType.LastIndexOf(Path.DirectorySeparatorChar);
             var typeOfTemplate = dirType.Substring(indexLast + 1);
-            IGenerator generator = null;
-            generator = _generatorFactory.Value.GetGenerator(typeOfTemplate);
-            await generator.Generate(pathDir, null, null, args.ToList());
+            var generator = _generatorFactory.Value.GetGenerator(typeOfTemplate);
+
+            var variables = await generator.GetTemplateVariables(pathDir);
+            int nrVariables = variables?.Count ?? 0;
+            int nrArgs = (args?.Count ?? 0);
+
+            if (nrArgs != nrVariables)
+            {
+                if (nrArgs < nrVariables)
+                {
+                    throw new NumberOfVariableParametersNotMatchingException($"Not enough arguments for template {templateName}")
+                    {
+                        TemplateName = templateName,
+                        Variables = variables,
+                        ProvidedParameters = args?.Skip(2)?.ToList()
+                    };
+                }
+                else
+                {
+                    throw new NumberOfVariableParametersNotMatchingException($"Too many arguments for template {templateName}")
+                    {
+                        TemplateName = templateName,
+                        Variables = variables,
+                        ProvidedParameters = args?.Skip(2)?.ToList()
+                    };
+                }
+            }
+            var dictArgs = new Dictionary<string, string>();
+            for (int i = 0; i < nrVariables; i++)
+            {
+                dictArgs.Add(variables[i], args[i]);
+            }
+
+            var targetDir = await _fileHandler.GetCurrDir();
+            await generator.Generate(pathDir, targetDir, dictArgs);
         }
 
     }

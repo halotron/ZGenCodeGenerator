@@ -50,7 +50,7 @@ namespace ZGenCodeGenerator.FileHandling
                                 {
                                     if (pathDir == null)
                                     {
-                                        pathDir = Path.GetDirectoryName(x);
+                                        pathDir = Path.GetDirectoryName(Path.GetDirectoryName(x));
                                     }
                                     return true;
                                 },

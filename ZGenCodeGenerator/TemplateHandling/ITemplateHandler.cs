@@ -8,6 +8,6 @@ namespace ZGenCodeGenerator.TemplateHandling
     public interface ITemplateHandler
     {
         Task CreateTemplate(IList<string> args);
-        Task Generate(string firstAarg, IEnumerable<string> args);
+        Task Generate(string templateName, IList<string> args);
     }
 }
