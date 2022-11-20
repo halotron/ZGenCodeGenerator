@@ -29,7 +29,12 @@ For convenciene you can add an alias to your shell profile
 ```
 alias zgen="dotnet tool run zgen"
 ```
-That can also be placed in a script file in your path.
+Or on windows you can add a zgen.bat in your path with the following content
+
+```
+dotnet tool run zgen
+```
+
 
 ## Features
 
