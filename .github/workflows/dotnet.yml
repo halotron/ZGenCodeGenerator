@@ -32,11 +32,11 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build /p:Version=${{ steps.gitversion.outputs.fullSemVer }} /p:AssemblyVersion=${{ steps.gitversion.outputs.fullSemVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.fullSemVer }} --no-restore
+      run: dotnet build /p:Version=${{ steps.gitversion.outputs.nuGetVersionV2 }}.${{ steps.gitversion.outputs.buildMetaData }} /p:AssemblyVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }}.${{ steps.gitversion.outputs.buildMetaData }} /p:InformationalVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }}.${{ steps.gitversion.outputs.buildMetaData }} --no-restore
     - name: Test
-      run: dotnet test /p:Version=${{ steps.gitversion.outputs.fullSemVer }} --no-build --verbosity normal
+      run: dotnet test /p:Version=${{ steps.gitversion.outputs.nuGetVersionV2 }}.${{ steps.gitversion.outputs.buildMetaData }} --no-build --verbosity normal
     - name: Pack nuget
-      run: dotnet pack -c Release -o:package /p:PackageVersion=${{ steps.gitversion.outputs.fullSemVer }}
+      run: dotnet pack -c Release -o:package /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }}.${{ steps.gitversion.outputs.buildMetaData }}
     - name: PushNuget
       run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.MY_NUGET_SECRET }} --skip-duplicate
 
