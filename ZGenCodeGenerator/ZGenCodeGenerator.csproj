@@ -1,18 +1,24 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	  <AssemblyVersion>$([System.DateTime]::Now.ToString("yyyy.MM.dd.HHmm"))</AssemblyVersion>
-	  <PackageVersion>$([System.DateTime]::Now.ToString("yyyy.MM.dd.HHmm"))</PackageVersion>
-	  <Deterministic>false</Deterministic>
-    <OutputType>Exe</OutputType>
-    <TargetFrameworks>netcoreapp3.1;net6.0</TargetFrameworks>
-	  <PackAsTool>true</PackAsTool>
-	  <ToolCommandName>zgen</ToolCommandName>
-	  <PackageOutputPath>./nupkg</PackageOutputPath>
-	  <Company>knacka.se</Company>
-	  <Authors>Jonas Jakobsson</Authors>
-	  <PackageProjectUrl>https://github.com/halotron/ZGenCodeGenerator</PackageProjectUrl>
-	  <RepositoryUrl>https://github.com/halotron/ZGenCodeGenerator</RepositoryUrl>
-	  <RepositoryType>git</RepositoryType>
-  </PropertyGroup>
+	<PropertyGroup>
+		<AssemblyVersion>$([System.DateTime]::Now.ToString("yyyy.MM.dd.HHmm"))</AssemblyVersion>
+		<PackageVersion>$([System.DateTime]::Now.ToString("yyyy.MM.dd.HHmm"))</PackageVersion>
+		<Deterministic>false</Deterministic>
+		<OutputType>Exe</OutputType>
+		<TargetFrameworks>netcoreapp3.1;net6.0</TargetFrameworks>
+		<PackAsTool>true</PackAsTool>
+		<ToolCommandName>zgen</ToolCommandName>
+		<PackageOutputPath>./nupkg</PackageOutputPath>
+		<Company>knacka.se</Company>
+		<Authors>Jonas Jakobsson</Authors>
+		<PackageProjectUrl>https://github.com/halotron/ZGenCodeGenerator</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/halotron/ZGenCodeGenerator</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="docs\README.md" Pack="true" PackagePath="\"/>
+		<None Include="docs\LICENSE.txt" Pack="true" PackagePath="LICENSE.txt"/>
+	</ItemGroup>
 </Project>
