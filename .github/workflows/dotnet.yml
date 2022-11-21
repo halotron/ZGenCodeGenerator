@@ -29,11 +29,11 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} /p:AssemblyVersion=${{ steps.gitversion.outputs.AssemblySemVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.InformationalVersion }} --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} --no-build --verbosity normal
     - name: Pack nuget
-      run: dotnet pack -c Release
+      run: dotnet pack -c Release -o:package /p:PackageVersion=${{ steps.gitversion.outputs.AssemblySemVer }}
     - name: PushNuget
       run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.MY_NUGET_SECRET }} --skip-duplicate
     - name: Determine Version
