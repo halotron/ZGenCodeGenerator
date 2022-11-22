@@ -12,7 +12,10 @@ namespace ZGenCodeGenerator.FileHandling
     {
         public Task AddDirectory(string dir)
         {
-            Directory.CreateDirectory(dir);
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir); 
+            }
             return Task.CompletedTask;
         }
 
