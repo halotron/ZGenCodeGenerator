@@ -1,13 +1,15 @@
 # ZGen Code Generator
 
-
-This is a source generator for dotnet. A dotnet tool.
+This is a simple template source generator for dotnet. A dotnet tool.
 
 The templates can be part of a source tree or be kept in a directory outside the source.
+The templates are stored in a directory called `.zgentemplates`.
 
+At the moment, only the z code generator is available. It is a simple template code generator that replaces any occurence of a variable with its value.
+The variables are called z&lt;NUMBER&gt; and can occur in directory names or files names.
+In a text file, it must be surrounded by `{{` and `}}`. Like this: `{{z1}}`.
 
 It is a template generator that can store templates somewhere in the directory tree under the current directory of the CLI.
-
 
 
 ## Installation
@@ -20,6 +22,8 @@ dotnet tool install -g zgen
 ```
 ## Usage in CLI or command line
 
+In windows command line, the tool can be invoked as `zgen` or `zgen.exe`.
+Otherwise it 
 ```
  dotnet tool run zgen --help
 ```
