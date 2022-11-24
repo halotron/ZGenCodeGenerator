@@ -67,6 +67,10 @@ namespace ZGenCodeGenerator
                     {
                         Console.WriteLine($"The template {e.TemplateName} requires {e.Variables?.Count() ?? 0} parameters, but you only provided {e.ProvidedParameters?.Count() ?? 0} parameters");
                     }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error: " + e.Message);
+                    }
 
                 }
                 else
