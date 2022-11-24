@@ -26,7 +26,10 @@ dotnet tool install -g zgencodegenerator
 ```
 dotnet tool update -g zgencodegenerator
 ```
-
+## Uninstall
+```
+dotnet tool uninstall -g zgencodegenerator
+```
 ## Usage in command line
 
 In windows command line, the tool can be invoked as `zgen` or `zgen.exe`.
