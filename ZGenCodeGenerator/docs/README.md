@@ -22,7 +22,12 @@ This tool is distributed through nuget.org, so it can be installed as a ususal d
 dotnet tool install -g zgencodegenerator
 
 ```
-## Usage in CLI or command line
+## Update
+```
+dotnet tool update -g zgencodegenerator
+```
+
+## Usage in command line
 
 In windows command line, the tool can be invoked as `zgen` or `zgen.exe`.
 Otherwise it should be possible to access it like this:
